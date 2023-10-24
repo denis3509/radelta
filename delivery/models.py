@@ -29,6 +29,7 @@ class Package(models.Model):
 
     session = models.ForeignKey(django.contrib.sessions.models.Session, on_delete=models.PROTECT)
     name = models.TextField(max_length=200)
+    # kilogram weight
     weight = models.DecimalField(max_digits=6, decimal_places=3, validators=[more_than_zero])
     type = models.ForeignKey(PackageType, on_delete=models.PROTECT)
     cost = models.DecimalField(max_digits=6, decimal_places=2, validators=[more_than_zero])

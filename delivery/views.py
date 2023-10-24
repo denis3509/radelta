@@ -129,6 +129,7 @@ class PackageList(mixins.ListModelMixin,
 
 
 def check_test_cookie(request):
+
     if request.method == "POST":
         if request.session.test_cookie_worked():
             request.session.delete_test_cookie()
