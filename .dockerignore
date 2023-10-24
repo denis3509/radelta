@@ -1,2 +1,4 @@
+.env
+.idea
+celerybeat-schedule
 dbdata
-venv
