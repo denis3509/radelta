@@ -5,7 +5,7 @@ services:
       - mysql_db
       - redis
       - django
-    restart: no
+    restart: always
     container_name: celery
 
     working_dir: /app
@@ -25,11 +25,12 @@ services:
 
     working_dir: /app
     user: django
-    command: [  "python", "manage.py", "runserver" ]
+    command: python manage.py runserver 0.0.0.0:8000
+
     build:
       dockerfile: ./Dockerfile
     ports:
-      - "${DJANGO_PORT}:8000"
+      - "8010:8000"
     env_file:
       - .env
 

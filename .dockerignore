@@ -2,3 +2,5 @@
 .idea
 celerybeat-schedule
 dbdata
+db.sqlite3
+venv

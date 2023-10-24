@@ -3,6 +3,9 @@ FROM  python:3.11-alpine
 ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
 WORKDIR /app
 RUN apk add mc \
     && apk add --virtual build-deps gcc python3-dev musl-dev \
