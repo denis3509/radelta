@@ -36,7 +36,6 @@ class DjangoLoguruHandler(logging.Handler):
 
     def __init__(self, level=0, **kwargs):
         self.kwargs = kwargs
-        print(kwargs)
         super(DjangoLoguruHandler, self).__init__(level)
 
     def emit(self, record) -> None:
