@@ -10,4 +10,9 @@
 
 Запустить задачу вычисления стоимости доставки:
 
-`python manage.py updatecosts` 
+`docker compose run python manage.py updatecosts` 
+
+
+Swagger: 
+
+`{hostname}/api/schema/docs/`
