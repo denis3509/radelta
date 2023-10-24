@@ -53,7 +53,7 @@ SECRET_KEY = 'django-insecure-%3@)km@e2)(1#xnm58oi_60&uxi6f$r6=b*c05(7a0&qj)14u0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG", bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -104,27 +104,18 @@ WSGI_APPLICATION = 'radelta.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-    # "default": {
-    #     "ENGINE": "django.db.backends.mysql",
-    #     'NAME': env("MYSQL_DATABASE", str),
-    #     'USER': env("MYSQL_USER", str),
-    #     'PASSWORD': env("MYSQL_PASSWORD", str),
-    #     'HOST': env("MYSQL_HOST", str),
-    #     'PORT': env("MYSQL_PORT", str),
-    #
-    #     "OPTIONS": {
-    #         # 'NAME': env("MYSQL_DATABASE", str),
-    #         # 'USER': env("MYSQL_USER", str),
-    #         # 'PASSWORD': env("MYSQL_PASSWORD", str),
-    #         # 'HOST': env("MYSQL_HOST", str),
-    #         # 'PORT': env("MYSQL_PORT", str),
-    #
-    #     },
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        'NAME': env("MYSQL_DATABASE", str),
+        'USER': env("MYSQL_USER", str),
+        'PASSWORD': env("MYSQL_PASSWORD", str),
+        'HOST': env("MYSQL_HOST", str),
+        'PORT': env("MYSQL_PORT", str),
+    }
 }
 
 # Password validation
