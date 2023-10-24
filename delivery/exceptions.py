@@ -1,0 +1,2 @@
+class DeliveryError(BaseException):
+    pass

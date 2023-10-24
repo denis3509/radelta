@@ -1,0 +1,1 @@
+celery -A radelta worker -l INFO -Q main,celery -B --pidfile="./run/celery/%n.pid"

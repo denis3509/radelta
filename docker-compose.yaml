@@ -1,0 +1,56 @@
+version: '3.7'
+services:
+  celery:
+    depends_on:
+      - mysql_db
+      - redis
+      - django
+    restart: no
+    container_name: celery
+
+    working_dir: /app
+    user: django
+    command: celery -A radelta worker -l INFO -Q main,celery -B --pidfile="./run/celery/%n.pid"
+    build:
+      dockerfile: ./Dockerfile
+    env_file:
+      - .env
+
+  django:
+    depends_on:
+      - mysql_db
+      - redis
+    restart: always
+    container_name: django
+
+    working_dir: /app
+    user: django
+    command: [  "python", "manage.py", "runserver" ]
+    build:
+      dockerfile: ./Dockerfile
+    ports:
+      - "${DJANGO_PORT}:8000"
+    env_file:
+      - .env
+#    network_mode: bridge
+#    entrypoint: [ "/app/docker-entrypoint.sh" ]
+  mysql_db:
+    image: mysql:8
+    restart: always
+    container_name: mysql_db
+#    ports:
+#      - "${MYSQL_PORT}:3306"
+    env_file:
+      - .env
+    volumes:
+      - ./dbdata:/var/lib/mysql/
+#    network_mode: bridge
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+
+#    ports:
+#      - "${REDIS_PORT}:6379"
+#    command: ["redis-server", "--bind", "redis", "--port", "6379"]
+#    network_mode: bridge
