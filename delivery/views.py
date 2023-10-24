@@ -8,6 +8,7 @@ from rest_framework import serializers as drf_serializers
 from rest_framework.generics import RetrieveAPIView, CreateAPIView
 from rest_framework.response import Response
 
+
 from delivery import models as mdl, tasks
 from delivery import serializers
 from radelta.views import BasePagination
@@ -42,6 +43,7 @@ class Package(RetrieveAPIView,
             return serializers.Package
 
     @extend_schema(
+        description="Returns package",
         responses={200: OpenApiTypes.OBJECT,
                    400: OpenApiTypes.OBJECT,
                    404: OpenApiTypes.OBJECT}
@@ -54,6 +56,7 @@ class Package(RetrieveAPIView,
                         registration_status=mdl.Package.SUCCESS)
 
     @extend_schema(
+        description="Creates package",
         responses={201: OpenApiTypes.OBJECT,
                    400: OpenApiTypes.OBJECT}
     )
@@ -66,11 +69,14 @@ class Package(RetrieveAPIView,
 
 
 class PackageAsync(Package):
+    allowed_methods = ["POST"]
+
     def perform_create(self, serializer):
         tasks.register_package.delay(self.request.data,
                                      self.request.session.session_key)
 
     @extend_schema(
+        description="Creates package asynchronously. Result can be checked in package list",
         responses={204: OpenApiTypes.NONE,
                    400: OpenApiTypes.OBJECT
                    }
@@ -80,8 +86,6 @@ class PackageAsync(Package):
             request.session.save()
         resp = self.create(request, *args, **kwargs)
         return Response(None, status=status.HTTP_204_NO_CONTENT, headers=resp.headers)
-
-    get = None
 
 
 class PackageList(mixins.ListModelMixin,
@@ -111,6 +115,7 @@ class PackageList(mixins.ListModelMixin,
         return queryset
 
     @extend_schema(
+        description="Returns user's packages or empty list if there is none",
         parameters=[
             FilterSerializer
         ],

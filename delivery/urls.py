@@ -10,4 +10,4 @@ urlpatterns = [
     path('api/delivery/package/<int:pk>/', views.Package.as_view()),
     path('api/delivery/package-list/', views.PackageList.as_view()),
 ]
-urlpatterns = format_suffix_patterns(urlpatterns)
+# urlpatterns = format_suffix_patterns(urlpatterns)
